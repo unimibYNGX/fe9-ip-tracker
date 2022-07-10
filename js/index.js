@@ -6,14 +6,30 @@ function httpGet(url) {
 }
 
 function searchIP() {
-  var url =
-    "https://geo.ipify.org/api/v2/country,city?apiKey=at_RwNW71G1oSdJ4Xd0M2o0I3AIwl3LX&ipAddress=" +
-    document.getElementById("input").value;
-  var content = httpGet(url);
-  var parsed = JSON.parse(content);
-  console.log(parsed);
+  if (!document.getElementById("input").value == "") {
+    var url =
+      "https://geo.ipify.org/api/v2/country,city?apiKey=at_RwNW71G1oSdJ4Xd0M2o0I3AIwl3LX&ipAddress=" +
+      document.getElementById("input").value;
+    var content = httpGet(url);
+    var parsed = JSON.parse(content);
+    console.log(parsed);
 
-  set(parsed);
+    set(parsed);
+  }
+}
+
+var map = L.map("map").setView([0, 0], 13);
+function createMap(lat, lng) {
+  map.off();
+  map.remove();
+  map = L.map("map").setView([lat, lng], 13);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  L.marker([lat, lng]).addTo(map).openPopup();
 }
 
 function set(data) {
@@ -21,13 +37,15 @@ function set(data) {
   setLocation(data.location.city, data.location.region, data.location.country);
   setTimezone(data.location.timezone);
   setISP(data.isp);
-  map(data.location.lat, data.location.lng);
+  createMap(data.location.lat, data.location.lng);
+  showByClass("res");
 }
 function setIPAddress(ip) {
   document.getElementById("ip-address").innerHTML = ip;
 }
 function setLocation(city, region, country) {
-  document.getElementById("location").innerHTML = city + ", " + region + ", " + country;
+  document.getElementById("location").innerHTML =
+    city + ", " + region + ", " + country;
 }
 function setTimezone(timezone) {
   document.getElementById("timezone").innerHTML = "UTC " + timezone;
@@ -52,15 +70,24 @@ function hide(id) {
   add("hide", id);
 }
 
-function map(lat, lng) {
-  var map = L.map("map").setView([lat, lng], 13);
-
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
-
-  L.marker([lat, lng])
-    .addTo(map)
-    .openPopup();
+function hideByClass(class_id) {
+  var arr = document.getElementsByClassName(class_id);
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    element.classList.add("hide");
+  }
 }
+function showByClass(class_id) {
+  var arr = document.getElementsByClassName(class_id);
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    element.classList.remove("hide");
+  }
+}
+
+hideByClass("res");
+input.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    searchIP();
+  }
+});
