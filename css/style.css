@@ -94,7 +94,7 @@ body {
 
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
-  min-width: 330px;
+  /* min-width: 330px; */
 }
 
 .section1 {
@@ -164,10 +164,10 @@ a:hover {
 }
 
 .res {
-  /* overflow: scroll; */
+  overflow: scroll;
   height: 60px;
 }
 
-.isp {
-  height: 18px;
-}
+/* .isp {
+  height: 19px !important;
+} */

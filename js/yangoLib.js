@@ -44,14 +44,15 @@ function checkSize(request, query) {
 
 function mobile() {
   hideByClass("vl");
-  set("input", "width", "77.5vw");
+  set("input", "width", "67.75vw");
   set("card", "top", "130px");
-  set("card", "width", "80vw");
+  set("card", "width", "70vw");
   set("card", "flex-wrap", "wrap");
   setByClass("block", "width", "100%");
   setByClass('block', 'text-align', 'center')
   setByClass("res", "height", "30px");
   setByClass("txt", "text-align", "center");
+  set('isp', 'height', '19px')
 }
 
 function desktop() {
@@ -64,6 +65,7 @@ function desktop() {
   setByClass('block', 'text-align', 'left')
   setByClass("res", "height", "60px");
   setByClass("txt", "text-align", "left");
+  set('isp', 'height', '60px')
 }
 
 window.addEventListener("resize", function (event) {
