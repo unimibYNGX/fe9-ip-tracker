@@ -14,7 +14,7 @@ function searchIP() {
     var parsed = JSON.parse(content);
     console.log(parsed);
 
-    set(parsed);
+    setData(parsed);
   }
 }
 
@@ -32,7 +32,7 @@ function createMap(lat, lng) {
   L.marker([lat, lng]).addTo(map).openPopup();
 }
 
-function set(data) {
+function setData(data) {
   setIPAddress(data.ip);
   setLocation(data.location.city, data.location.region, data.location.country);
   setTimezone(data.location.timezone);
@@ -91,3 +91,4 @@ input.addEventListener("keydown", function (e) {
     searchIP();
   }
 });
+
