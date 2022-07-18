@@ -14,6 +14,21 @@ function hide(id) {
   add("hide", id);
 }
 
+function hideByClass(class_id) {
+  var arr = document.getElementsByClassName(class_id);
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    element.classList.add("hide");
+  }
+}
+function showByClass(class_id) {
+  var arr = document.getElementsByClassName(class_id);
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    element.classList.remove("hide");
+  }
+}
+
 function set(id, attr, value) {
   var el = document.getElementById(id);
   el.style.setProperty(attr, value);
@@ -49,10 +64,10 @@ function mobile() {
   set("card", "width", "70vw");
   set("card", "flex-wrap", "wrap");
   setByClass("block", "width", "100%");
-  setByClass('block', 'text-align', 'center')
+  setByClass("block", "text-align", "center");
   setByClass("res", "height", "30px");
   setByClass("txt", "text-align", "center");
-  set('isp', 'height', '19px')
+  set("isp", "height", "19px");
 }
 
 function desktop() {
@@ -62,10 +77,10 @@ function desktop() {
   set("card", "width", "fit-content");
   set("card", "flex-wrap", "no-wrap");
   setByClass("block", "width", "120px");
-  setByClass('block', 'text-align', 'left')
+  setByClass("block", "text-align", "left");
   setByClass("res", "height", "60px");
   setByClass("txt", "text-align", "left");
-  set('isp', 'height', '60px')
+  set("isp", "height", "60px");
 }
 
 window.addEventListener("resize", function (event) {
